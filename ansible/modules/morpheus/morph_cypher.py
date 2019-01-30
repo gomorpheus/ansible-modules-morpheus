@@ -18,7 +18,7 @@ except ImportError:
 @morphwrapper
 def morph_secret(module):
 
-    result = { "changed": False}
+    result = { "changed": False, "rc": 0}
 
     cypher = posixpath.join('api', 'cypher')
     url = urljoin(module.params["baseurl"], cypher)
