@@ -3,6 +3,7 @@ import requests
 import json
 import posixpath
 from ansible.module_utils.basic import *
+from ansible.module_utils.morpheus import *
 try:
     from urlparse import urljoin
 except ImportError:
@@ -13,27 +14,8 @@ except ImportError:
     from urllib.parse import urlencode
 
 
-def morph_auth(module):
 
-    url = urljoin(module.params["baseurl"], 'oauth')
-    access = {
-        "grant_type": "password",
-        "scope": "write",
-        "client_id": "morph-customer"
-    }
-
-    url2 = url + '/token?%s' % urlencode(access)
-    payload = "username=" + module.params["username"] + "&password=" + module.params["password"]
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-agent': 'curl/7.51.0'
-    }
-    res = requests.post(url2, data=payload, headers=headers)
-    json_response = json.loads(res.text)
-    access_token = json_response["access_token"]
-    return access_token
-
-
+@morphwrapper
 def morph_secret(module):
 
     result = { "changed": False}
@@ -42,7 +24,8 @@ def morph_secret(module):
     url = urljoin(module.params["baseurl"], cypher)
     headers = {"Authorization": "BEARER " + module.params["api_token"]}
     json_data = requests.get(url, headers=headers).json()
-    match = next(d["id"] for d in json_data["cyphers"] if d["itemKey"] == module.params["secret_key"])
+
+    match = [d["id"] for d in json_data["cyphers"]][0]
     
     new_cypher = posixpath.join('cypher', str(match), 'decrypt')
     secret_url = urljoin(url, new_cypher)
