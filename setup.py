@@ -8,7 +8,7 @@ files = [
     "ansible/modules/morpheus",
 ]
 
-long_description=open('README.rst', 'r').read()
+long_description=open('README.md', 'r').read()
 
 setup(
     name='ansible-modules-morpheus',
