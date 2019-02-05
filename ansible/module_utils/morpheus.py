@@ -37,12 +37,10 @@ def morphtoken():
 def morph_get_client(params, endpoint):
     authtype = params.get('authtype')
     baseurl = params.get('baseurl')
-    '''
     if authtype == 'userpass':
         token = morph_auth(params)
     else:
-    '''
-    token = token = params.get('api_token')
+        token = token = params.get('api_token')
     url = urljoin(baseurl, endpoint)
     headers = {"Authorization": "BEARER " + token}
     json_data = requests.get(url, headers=headers).json()
