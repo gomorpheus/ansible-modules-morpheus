@@ -15,7 +15,7 @@ except ImportError:
 
 def morph_argspec():
     argument_spec = dict(
-        baseurlurl = dict(required=False, default=os.environ.get('MORPH_ADDR', ''), type='str'),
+        baseurl = dict(required=False, default=os.environ.get('MORPH_ADDR', ''), type='str'),
         authtype = dict(required=False, default=os.environ.get('MORPH_AUTHTYPE', 'token'), type='str'),
         api_token = dict(required=False, default=morphtoken(), type='str', no_log=True)
     )
