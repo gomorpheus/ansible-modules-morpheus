@@ -12,7 +12,7 @@ long_description=open('README.md', 'r').read()
 
 setup(
     name='ansible-modules-morpheus',
-    version='0.1',
+    version='3.5.3',
     description='Ansible Modules for Morpheus Data',
     long_description=long_description,
     author='Adam Hicks',
