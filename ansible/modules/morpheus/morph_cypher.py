@@ -19,13 +19,13 @@ except ImportError:
 def morph_secret(params):
 
     result = { "changed": False, "rc": 0}
-
     cypher = posixpath.join('api', 'cypher')
+    client = morph_get_client(params, cypher)
     url = urljoin(params["baseurl"], cypher)
     headers = {"Authorization": "BEARER " + params["api_token"]}
     json_data = requests.get(url, headers=headers).json()
 
-    match = [d["id"] for d in json_data["cyphers"]][0]
+    match = [d["id"] for d in client["cyphers"]][0]
     
     new_cypher = posixpath.join('cypher', str(match), 'decrypt')
     secret_url = urljoin(url, new_cypher)
