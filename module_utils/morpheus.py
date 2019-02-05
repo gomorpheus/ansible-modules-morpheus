@@ -48,7 +48,6 @@ def morph_get_client(params, endpoint):
     json_data = requests.get(url, headers=headers).json()
     return json_data
     
-        
 
 def morph_auth(params):
     username = params.get('username')
@@ -61,6 +60,7 @@ def morph_auth(params):
         "client_id": "morph-customer"
         }
     url2 = url + '/token?{}'.format(urlencode(access))
+    payload = "username=" + username + "&password=" + password
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'User-agent': 'curl/7.51.0'
