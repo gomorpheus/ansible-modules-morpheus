@@ -17,7 +17,7 @@ setup(
     long_description=long_description,
     author='Adam Hicks',
     author_email='ahicks@morpheusdata.com',
-    url='https://github.com/tadamhicks/ansible-modules-morpheus',
+    url='https://github.com/gomorpheus/ansible-modules-morpheus',
     py_modules=py_files,
     packages=files,
     install_requires = [
