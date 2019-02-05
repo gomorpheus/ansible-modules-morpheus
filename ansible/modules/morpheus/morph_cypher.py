@@ -21,15 +21,16 @@ def morph_secret(params):
     result = { "changed": False, "rc": 0}
     cypher = posixpath.join('api', 'cypher')
     client = morph_get_client(params, cypher)
-    url = urljoin(params["baseurl"], cypher)
-    headers = {"Authorization": "BEARER " + params["api_token"]}
-    json_data = requests.get(url, headers=headers).json()
+    #url = urljoin(params["baseurl"], cypher)
+    #headers = {"Authorization": "BEARER " + params["api_token"]}
+    #json_data = requests.get(url, headers=headers).json()
 
     match = [d["id"] for d in client["cyphers"]][0]
     
     new_cypher = posixpath.join('cypher', str(match), 'decrypt')
-    secret_url = urljoin(url, new_cypher)
-    new_resp = requests.get(secret_url, headers=headers)
+    #secret_url = urljoin(url, new_cypher)
+    #new_resp = requests.get(secret_url, headers=headers)
+    new_resp = morph_get_client(params, new_cypher)
     result['secret'] = new_resp.json()["cypher"]["itemValue"]
 
     return result
