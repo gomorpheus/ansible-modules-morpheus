@@ -32,25 +32,43 @@ def morphtoken():
     token_file = os.path.expanduser('~/.morphtoken')
     if os.path.exists(token_file):
         with open(token_file, 'r') as f:
-            return f.read().strip()
-    else:
-        username = os.environ['MORPH_USER']
-        password = os.environ['MORPH_PASSWORD']
-        url = urljoin(os.environ['MORPH_ADDR'], 'oauth')
-        access = {
-            "grant_type": "password",
-            "scope": "write",
-            "client_id": "morph-customer"
-            }
-        url2 = url + '/token?%s' % urlencode(access)
-        headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'User-agent': 'curl/7.51.0'
-        }
-        res = requests.post(url2, data=payload, headers=headers)
-        json_response = json.loads(res.text)
-        return json_response["access_token"]   
+            return f.read().strip() 
     return ''
+
+
+def morph_get_client(params, endpoint):
+    authtype = params.get('authtype')
+    baseurl = params.get('baseurl')
+    if authtype == 'userpass':
+        token = morph_auth(params)
+    else:
+        token = token = params.get('api_token')
+    url = urljoin(baseurl, endpoint)
+    headers = {"Authorization": "BEARER " + token}
+    json_data = requests.get(url, headers=headers).json()
+    return json_data
+    
+        
+
+def morph_auth(params):
+    username = params.get('username')
+    password = params.get('password')
+    baseurl = params.get('baseurl')
+    url = urljoin(baseurl, 'oauth')
+    access = {
+        "grant_type": "password",
+        "scope": "write",
+        "client_id": "morph-customer"
+        }
+    url2 = url + '/token?{}'.format(urlencode(access))
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'User-agent': 'curl/7.51.0'
+        }
+    res = requests.post(url2, data=payload, headers=headers)
+    json_response = json.loads(res.text)
+    return json_response["access_token"]
+
 
 def morphwrapper(function):
     def wrapper(*args, **kwargs):
