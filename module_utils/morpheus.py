@@ -18,8 +18,6 @@ def morph_argspec():
         baseurlurl = dict(required=False, default=os.environ.get('MORPH_ADDR', ''), type='str'),
         authtype = dict(required=False, default=os.environ.get('MORPH_AUTHTYPE', 'token'), type='str'),
         api_token = dict(required=False, default=morphtoken(), type='str', no_log=True)
-#        username = dict(required=False, default=os.environ.get('MORPH_USER', ''), type='str'),
-#        password = dict(required=False, default=os.environ.get('MORPH_PASSWORD', ''), type='str', no_log=True)
     )
     return argument_spec
 
