@@ -48,7 +48,7 @@ def morph_get_client(params, endpoint):
     json_data = requests.get(url, headers=headers).json()
     return json_data
     
-'''
+
 def morph_auth(params):
     username = params.get('username')
     password = params.get('password')
@@ -68,7 +68,6 @@ def morph_auth(params):
     res = requests.post(url2, data=payload, headers=headers)
     json_response = json.loads(res.text)
     return json_response["access_token"]
-'''
 
 
 def morphwrapper(function):
