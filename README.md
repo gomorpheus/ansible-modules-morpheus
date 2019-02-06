@@ -1,5 +1,5 @@
 # Ansible Modules Morpheus
-[![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[[!PyPi](https://img.shields.io/pypi/v/ansible-modules-morpheus.svg)](https://pypi.python.org/pypi/ansible-modules-morpheus/) [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Install this module:
 * via `pip`
