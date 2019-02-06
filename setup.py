@@ -15,6 +15,7 @@ setup(
     version='0.0.1',
     description='Ansible Modules for Morpheus Data',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Adam Hicks',
     author_email='ahicks@morpheusdata.com',
     url='https://github.com/gomorpheus/ansible-modules-morpheus',
