@@ -17,7 +17,9 @@ def morph_argspec():
     argument_spec = dict(
         baseurl = dict(required=False, default=os.environ.get('MORPH_ADDR', ''), type='str'),
         authtype = dict(required=False, default=os.environ.get('MORPH_AUTHTYPE', 'token'), type='str'),
-        api_token = dict(required=False, default=morphtoken(), type='str', no_log=True)
+        api_token = dict(required=False, default=morphtoken(), type='str', no_log=True),
+        username = dict(required=False, default=os.environ.get('MORPH_USER', ''), type='str'),
+        password = dict(required=False, default=os.environ.get('MORPH_PASSWORD', ''), type='str', no_log=True)
     )
     return argument_spec
 
@@ -40,7 +42,7 @@ def morph_get_client(params, endpoint):
     if authtype == 'userpass':
         token = morph_auth(params)
     else:
-        token = token = params.get('api_token')
+        token = params.get('api_token')
     url = urljoin(baseurl, endpoint)
     headers = {"Authorization": "BEARER " + token}
     json_data = requests.get(url, headers=headers).json()
