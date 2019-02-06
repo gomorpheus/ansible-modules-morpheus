@@ -6,3 +6,7 @@ Install this module:
 ```python
 pip install ansible-modules-morpheus
 ```
+* via `ansible-galaxy`
+```python
+ansible-galaxy install 'git+https://github.com/gomorpheus/ansible-modules-morpheus.git'
+```
