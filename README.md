@@ -20,3 +20,20 @@ The following variables need to be exported to the environment where you run ans
 
 Addition variables for specific modules:
 * MORPH_SECRET: Morpheus secret key for Cypher value reads in morph_cypher module
+
+## Module Examples
+### morph_cypher
+```python
+- hosts: foo
+  tasks:
+    - name: gettoken
+      morph_cypher:
+        baseurl: "https://sandbox.morpheusdata.com"
+        secret_key: "password/spark"
+        authtype: token
+      register: results
+    - debug: var=results.secret
+```
+
+## License
+[MIT](https://github.com/gomorpheus/ansible-modules-morpheus/blob/master/LICENSE)
