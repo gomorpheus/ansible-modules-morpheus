@@ -12,5 +12,11 @@ ansible-galaxy install 'git+https://github.com/gomorpheus/ansible-modules-morphe
 ```
 ## Environment Variables
 The following variables need to be exported to the environment where you run ansible in order to authenticate to your Morpheus Appliance:
->*MORPH_ADDR : url for Morpheus Appliance
->*MORPH_AUTHTYPE: authorization type for Morpheus (token or userpass)
+* MORPH_ADDR : url for Morpheus Appliance
+* MORPH_AUTHTYPE: authorization type for Morpheus (token or userpass)
+* MORPH_USER: Morpheus appliance username for userpass authtype
+* MORPH_PASSWORD: Morpheus appliance user password for userpass authtype
+* MORPH_TOKEN: Morpheus api token for token authtype
+
+Addition variables for specific modules:
+* MORPH_SECRET: Morpheus secret key for Cypher value reads in morph_cypher module
