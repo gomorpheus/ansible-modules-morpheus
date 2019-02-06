@@ -14,11 +14,11 @@ except ImportError:
     from urllib.parse import urlencode
 
 
-ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '0.0.1'}
+ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '0.0.2'}
 DOCUMENTATION = '''
 ---
 module: morph_cypher
-version_added: "0.0.1"
+version_added: "0.0.2"
 short_description: Morpheus Cypher read module
 description:
     - Module to read from Morpheus Cypher service.
