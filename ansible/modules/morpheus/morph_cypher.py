@@ -2,8 +2,8 @@
 import requests
 import json
 import posixpath
-from ansible.module_utils.basic import *
-from ansible.module_utils.morpheus import *
+from ansible.module_utils.morpheus import morph_get_client, morph_argspec, /
+    morph_init
 try:
     from urlparse import urljoin
 except ImportError:
@@ -12,6 +12,18 @@ try:
     from urllib import urlencode
 except ImportError:
     from urllib.parse import urlencode
+
+
+ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 'version': '0.0.1'}
+DOCUMENTATION = '''
+---
+module: morph_cypher
+version_added: "0.0.1"
+short_description: Morpheus Cypher read module
+description:
+    - Module to read from Morpheus Cypher service.
+options:
+'''
 
 
 
@@ -46,7 +58,10 @@ def main():
     
     result = morph_secret(module.params)
 
-    module.exit_json(**result)
+    if result.get('failed'):
+        module.fail_json(**result)
+    else:
+        module.exit_json(**result)
 
 
 if __name__=="__main__":
