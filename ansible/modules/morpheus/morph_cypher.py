@@ -54,7 +54,6 @@ options:
 '''
 
 
-
 @morphwrapper
 def morph_secret(params):
 
