@@ -2,7 +2,7 @@
 import requests
 import json
 import posixpath
-from ansible.module_utils.morpheus import morph_get_client, morph_argspec, /
+from ansible.module_utils.morpheus import morph_get_client, morph_argspec, \
     morph_init
 try:
     from urlparse import urljoin
