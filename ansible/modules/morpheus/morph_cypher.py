@@ -23,6 +23,34 @@ short_description: Morpheus Cypher read module
 description:
     - Module to read from Morpheus Cypher service.
 options:
+    baseurl:
+        description:
+            - url for Morpheus
+        default:
+            - to environment variable MORPH_ADDR
+    authtype:
+        description:
+            - Defines how module builds client to Morpheus, through credentials or token
+        default:
+            - to environment variable MORPH_AUTHTYPE as token
+    api_token:
+        description:
+            - API Token for Morpheus
+        default:
+            - to environment variable MORPH_TOKEN
+    username:
+        description:
+            - Morpheus Username for userpass based auth
+        default:
+            - to environment variable MORPH_USER
+    password:
+        description:
+            - Morpheus Password for userpass based auth
+        default:
+            - to environment variable MORPH_PASSWORD
+    register:
+        description:
+            - variable to register result.
 '''
 
 
@@ -52,7 +80,7 @@ def morph_secret(params):
 def main():
 
     fields = morph_argspec()
-    fields['secret_key'] = dict(required=True, type='str')
+    fields['secret_key'] = dict(required=True, default=os.environ.get('MORPH_SECRET'), type='str')
 
     module = morph_init(fields)
     
