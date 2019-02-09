@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Adam Hicks
+  description: Ansible modules for Hashicorp Vault
+  license: MIT
+
+  min_ansible_version: 2.0
+
+  galaxy_tags:
+    - morpheus
+    - cypher
+    - secrets
+    - security
+    - cloud
+    - orchestration
+    - automation
+
+dependencies: []
