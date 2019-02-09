@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 #
-# Vault Lookup Plugin
+# Morph_Cypher Lookup Plugin
 #
-# A simple example of using the vault plugin in a role:
+# A simple example of using the morph_cypher plugin in a role:
 #    ---
-#    - debug: msg="{{lookup('vault', 'ldapadmin', 'password')}}"
+#    - debug: msg="{{lookup('morph', 'ldapadmin', 'password')}}"
 #
-# The plugin must be run with VAULT_ADDR and VAULT_TOKEN set and
+# The plugin must be run with MORPH_ADDR and MORPH_TOKEN set and
 # exported.
 #
 # The plugin can be run manually for testing:
-#     python ansible/plugins/lookup/hashivault.py ldapadmin password
+#     python ansible/plugins/lookup/morph_cypher.py ldapadmin password
 #
 
 import json
