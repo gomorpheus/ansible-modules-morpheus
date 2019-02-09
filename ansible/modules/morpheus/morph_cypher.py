@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import requests
 import json
+import os
 import posixpath
 from ansible.module_utils.morpheus import (
     morph_get_client,
