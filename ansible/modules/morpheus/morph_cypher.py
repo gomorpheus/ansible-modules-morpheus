@@ -2,8 +2,12 @@
 import requests
 import json
 import posixpath
-from ansible.module_utils.morpheus import morph_get_client, morph_argspec, \
-    morph_init, morphwrapper
+from ansible.module_utils.morpheus import (
+    morph_get_client,
+    morph_argspec,
+    morph_init, 
+    morphwrapper
+)
 try:
     from urlparse import urljoin
 except ImportError:
@@ -68,7 +72,7 @@ def morph_secret(params):
     
     new_cypher = posixpath.join('cypher', str(match), 'decrypt')
     secret_url = urljoin(url, new_cypher)
-    new_resp = requests.get(secret_url, headers=headers)
+    new_resp = requests.get(secret_url, headers=headers, verify=params['ssl_verify'])
     #new_resp = morph_get_client(params, new_cypher)
     #result['secret'] = new_resp["cypher"]["itemValue"]
     result['secret'] = new_resp.json()["cypher"]["itemValue"]

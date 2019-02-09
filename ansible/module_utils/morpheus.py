@@ -16,6 +16,7 @@ except ImportError:
 def morph_argspec():
     argument_spec = dict(
         baseurl = dict(required=False, default=os.environ.get('MORPH_ADDR', ''), type='str'),
+        ssl_verify = dict(required=False, default=os.environ.get('MORPH_SSL_VERIFY', True), type='bool'),
         authtype = dict(required=False, default=os.environ.get('MORPH_AUTHTYPE', 'token'), type='str'),
         api_token = dict(required=False, default=morphtoken(), type='str', no_log=True),
         username = dict(required=False, default=os.environ.get('MORPH_USER', ''), type='str'),
@@ -23,8 +24,10 @@ def morph_argspec():
     )
     return argument_spec
 
+
 def morph_init(argument_spec, supports_check_mode=False):
     return AnsibleModule(argument_spec=argument_spec, supports_check_mode=supports_check_mode)
+
 
 def morphtoken():
     if 'MORPH_TOKEN' in os.environ:
@@ -37,6 +40,7 @@ def morphtoken():
 
 
 def morph_get_client(params, endpoint):
+    verify = params.get('ssl_verify')
     authtype = params.get('authtype')
     baseurl = params.get('baseurl')
     if authtype == 'userpass':
@@ -45,7 +49,7 @@ def morph_get_client(params, endpoint):
         token = params.get('api_token')
     url = urljoin(baseurl, endpoint)
     headers = {"Authorization": "BEARER " + token}
-    json_data = requests.get(url, headers=headers).json()
+    json_data = requests.get(url, headers=headers, verify=verify).json()
     return json_data
     
 
