@@ -17,6 +17,7 @@ If you choose to use env vars the following variables can be exported to the env
 * MORPH_USER: Morpheus appliance username for userpass authtype
 * MORPH_PASSWORD: Morpheus appliance user password for userpass authtype
 * MORPH_TOKEN: Morpheus api token for token authtype
+* MORPH_SSL_VERIFY: Boolean for verifying ssl
 
 Addition variables for specific modules:
 * MORPH_SECRET: Morpheus secret key for Cypher value reads in morph_cypher module
@@ -28,6 +29,7 @@ Alternatively you can pass arguments to the module by using discrete variables i
 * api_token: Morpheus api token for token authtype
 * username: Morpheus appliance username for userpass authtype
 * password: Morpheus appliance user password for userpass authtype
+* ssl_verify: Boolean for verifying SSL
 
 For specific modules
 * secret_key: Morpheus secret key for Cypher value reads in morph_cypher module
@@ -42,6 +44,7 @@ For specific modules
         baseurl: "https://sandbox.morpheusdata.com"
         secret_key: "password/spark"
         authtype: token
+        ssl_verify: False
       register: results
     - debug: var=results.secret
 ```
