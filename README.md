@@ -11,7 +11,7 @@ pip install ansible-modules-morpheus
 ansible-galaxy install 'git+https://github.com/gomorpheus/ansible-modules-morpheus.git'
 ```
 ## Environment Variables
-If you choose to use env vars the following variables can be exported to the environment where you run ansible in order to authenticate to your Morpheus Appliance:
+If you choose to use env vars the following variables can be exported to the environment you are controlling with ansible in order to authenticate to your Morpheus Appliance:
 * MORPH_ADDR : url for Morpheus Appliance
 * MORPH_AUTHTYPE: authorization type for Morpheus (token or userpass)
 * MORPH_USER: Morpheus appliance username for userpass authtype
