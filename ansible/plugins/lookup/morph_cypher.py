@@ -28,8 +28,9 @@ except ImportError:
 from ansible.errors import AnsibleError
 from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.morpheus import (
-    morphtoken,
+    morph_auth,
     morph_get_client,
+    morphtoken
 )
 
 
@@ -49,6 +50,7 @@ class LookupModule(LookupBase):
                 params['username'] = os.environ.get('MORPH_USER')
             if 'password' not in params:
                 params['password'] = os.environ.get('MORPH_PASSWORD')
+            params['api_token'] = morph_auth(params)
         else:
             if 'api_token' not in params:
                 params['api_token'] = morphtoken()
@@ -70,7 +72,7 @@ class LookupModule(LookupBase):
         new_cypher = posixpath.join('cypher', str(match), 'decrypt')
         secret_url = urljoin(url, new_cypher)
         new_resp = requests.get(secret_url, headers=headers, verify=params['ssl_verify'])
-        result['secret'] = new_resp.json()['cypher']['itemValue']
+        result = new_resp.json()['cypher']['itemValue']
         return result
         
 
