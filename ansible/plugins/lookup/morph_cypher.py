@@ -56,7 +56,17 @@ class LookupModule(LookupBase):
         return params
 
 
-    def run(self, params):
+    def run(self, terms, variables=None, **kwargs):
+        cypher_args = terms[0].split()
+        params = {}
+
+        for item in cypher_args:
+            try:
+                key, value = item.split('=')
+            except ValueError:
+                raise AnsibleError("morph_cypher lookup plugin needs ke=value pairs, but received %s" %terms)
+            params[key] = value
+
         cypher = posixpath.join('api', 'cypher')
         client = morph_get_client(self._get_params(params), cypher)
         url = urljoin(params['baseurl'], cypher)
@@ -68,7 +78,7 @@ class LookupModule(LookupBase):
         result = new_resp.json()['cypher']['itemValue']
         return result
         
-
+'''
 def main(argv=sys.argv[1:]):
     if len(argv) < 1:
         print("Usage: morph_cypher.py path [key]")
@@ -82,3 +92,4 @@ def main(argv=sys.argv[1:]):
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
+'''
