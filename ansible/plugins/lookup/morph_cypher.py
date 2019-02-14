@@ -63,7 +63,7 @@ class LookupModule(LookupBase):
 
     def run(self, params):
         cypher = posixpath.join('api', 'cypher')
-        client = morph_get_client(self._get_params(params, cypher))
+        client = morph_get_client(self._get_params(params), cypher)
         url = urljoin(params['baseurl'], cypher)
         headers = {'Authorization': 'BEARER ' + params['api_token']}
         match = [d['id'] for d in client['cyphers']][0]
