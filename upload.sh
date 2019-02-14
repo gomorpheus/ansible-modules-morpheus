@@ -20,4 +20,6 @@ git push origin master
 git tag --force  -a $VERSION -m v$VERSION
 git push origin --tags
 #python setup.py register -r pypi
-python setup.py sdist upload -r pypi
+rm dist/*
+python setup.py sdist bdist_wheel
+twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
