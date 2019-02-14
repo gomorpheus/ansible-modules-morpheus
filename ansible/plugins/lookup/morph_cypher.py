@@ -1,17 +1,56 @@
-#!/usr/bin/env python
-#
-# Morph_Cypher Lookup Plugin
-#
-# A simple example of using the morph_cypher plugin in a role:
-#    ---
-#    - debug: msg="{{lookup('morph', 'ldapadmin', 'password')}}"
-#
-# The plugin must be run with MORPH_ADDR and MORPH_TOKEN set and
-# exported.
-#
-# The plugin can be run manually for testing:
-#     python ansible/plugins/lookup/morph_cypher.py ldapadmin password
-#
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
+
+DOCUMENTATION = """
+      lookup: morph_cypher
+        author: Adam Hicks <ahicks@morpheusdata.com>
+        version_added: "0.1.0"
+        short_description: read secrets from Morpheus's Cypher Vault
+        description:
+            - read secrets from Morpheus's Cypher Vault
+        options:
+          baseurl:
+            description: URL for Morpheus
+            required: True
+          authtype:
+            description: userpass based auth or token based auth
+            required: True
+          secret_key:
+            description: The secret key to be read from Morpheus
+            required: True
+          username:
+            description: Username for authenticating against Morpheus
+            required: False
+          password:
+            description: password for Username for authenticating against Morpheus
+            required: False
+          api_token:
+            description: Morpheus API Token for authenticating against Morpheus
+            required: False
+          ssl_verify:
+            description: Ignore SSL warnings True or False
+            required: False
+        notes:
+          - if read in variable context, the file can be interpreted as YAML if the content is valid to the parser.
+          - this lookup does not understand globing --- use the fileglob lookup instead.
+"""
+
+EXAMPLES = """
+- debug:
+    msg: "{{ lookup('morph_cypher', 'baseurl=https://sandbox.morpheusdata.com authtype=token api_token=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx secret_key=password/spark')}}"
+
+- debug:
+    msg: "{{ lookup('morph_cypher', 'baseurl=https://sandbox.morpheusdata.com authtype=userpass username=slim_shady password=password secret_key=secret/hello') }}"
+
+- debug:
+    msg: "{{ lookup('morph_cypher', 'baseurl=https://sandbox.morpheusdata.com authtype=token api_token=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx ssl_verify=False secret_key=key/256/myKey') }}"
+"""
+
+RETURN = """
+_raw:
+  description:
+    - secrets(s) requested
+"""
 
 import json
 import os
@@ -32,6 +71,8 @@ from ansible.module_utils.morpheus import (
     morph_get_client,
     morphtoken
 )
+from ansible.utils.display import Display
+display = Display()
 
 
 class LookupModule(LookupBase):
@@ -65,7 +106,7 @@ class LookupModule(LookupBase):
             try:
                 key, value = item.split('=')
             except ValueError:
-                raise AnsibleError("morph_cypher lookup plugin needs ke=value pairs, but received %s" %terms)
+                raise AnsibleError("morph_cypher lookup plugin needs key=value pairs, but received %s" %terms)
             params[key] = value
 
         cypher = posixpath.join('api', 'cypher')
@@ -78,19 +119,3 @@ class LookupModule(LookupBase):
         new_resp = requests.get(secret_url, headers=headers, verify=params['ssl_verify'])
         ret.append(new_resp.json()['cypher']['itemValue'])
         return ret
-        
-'''
-def main(argv=sys.argv[1:]):
-    if len(argv) < 1:
-        print("Usage: morph_cypher.py path [key]")
-        return -1
-    params = {}
-    for i in argv:
-        key, value = [j.strip() for j in i.split('=', 1)]
-        params[key] = value
-    print(LookupModule().run(params))
-    return 0
-
-if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
-'''

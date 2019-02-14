@@ -23,7 +23,7 @@ ANSIBLE_METADATA = {'status': ['stableinterface'], 'supported_by': 'community', 
 DOCUMENTATION = '''
 ---
 module: morph_cypher
-version_added: "0.0.2"
+version_added: "0.1.0"
 short_description: Morpheus Cypher read module
 description:
     - Module to read from Morpheus Cypher service.
@@ -53,6 +53,16 @@ options:
             - Morpheus Password for userpass based auth
         default:
             - to environment variable MORPH_PASSWORD
+    secret_key:
+        description:
+            - Secret key to read value from Morpheus
+        default:
+            - to environment variable MORPH_SECRET
+    ssl_verify:
+        description:
+            - ignore ssl true or false
+        default:
+            - defaults to ssl_verify = True
     register:
         description:
             - variable to register result.

@@ -61,5 +61,18 @@ or explicitly passing the api_token as a var:
       register: results
 ```
 
+## Lookup Plugin Examples
+### morph_cypher
+```python
+- debug:
+    msg: "{{ lookup('morph_cypher', 'baseurl=https://sandbox.morpheusdata.com authtype=token api_token=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx secret_key=password/spark')}}"
+
+- debug:
+    msg: "{{ lookup('morph_cypher', 'baseurl=https://sandbox.morpheusdata.com authtype=userpass username=slim_shady password=password secret_key=secret/hello') }}"
+
+- debug:
+    msg: "{{ lookup('morph_cypher', 'baseurl=https://sandbox.morpheusdata.com authtype=token api_token=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx ssl_verify=False secret_key=key/256/myKey') }}"
+```
+
 ## License
 [MIT](https://github.com/gomorpheus/ansible-modules-morpheus/blob/master/LICENSE)
