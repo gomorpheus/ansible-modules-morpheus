@@ -2,7 +2,8 @@
 from setuptools import setup
 
 py_files = [
-    "ansible/module_utils/morpheus"
+    "ansible/module_utils/morpheus",
+    "ansible/plugins/lookup/morph_cypher"
 ]
 files = [
     "ansible/modules/morpheus",
