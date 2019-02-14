@@ -59,6 +59,7 @@ class LookupModule(LookupBase):
     def run(self, terms, variables=None, **kwargs):
         cypher_args = terms[0].split()
         params = {}
+        ret = []
 
         for item in cypher_args:
             try:
@@ -75,8 +76,8 @@ class LookupModule(LookupBase):
         new_cypher = posixpath.join('cypher', str(match), 'decrypt')
         secret_url = urljoin(url, new_cypher)
         new_resp = requests.get(secret_url, headers=headers, verify=params['ssl_verify'])
-        result = new_resp.json()['cypher']['itemValue']
-        return result
+        ret.append(new_resp.json()['cypher']['itemValue'])
+        return ret
         
 '''
 def main(argv=sys.argv[1:]):
