@@ -67,7 +67,7 @@ class LookupModule(LookupBase):
         url = urljoin(params['baseurl'], cypher)
         headers = {'Authorization': 'BEARER ' + params['api_token']}
         match = [d['id'] for d in client['cyphers']][0]
-        new_cypher = posixpath.join('cypher', str(match) 'decrypt')
+        new_cypher = posixpath.join('cypher', str(match), 'decrypt')
         secret_url = urljoin(url, new_cypher)
         new_resp = requests.get(secret_url, headers=headers, verify=params['ssl_verify'])
         result['secret'] = new_resp.json()['cypher']['itemValue']
@@ -82,7 +82,7 @@ def main(argv=sys.argv[1:]):
     for i in argv:
         key, value = [j.strip() for j in i.split('=', 1)]
         params[key] = value
-    print(LookupModule().run(params)
+    print(LookupModule().run(params))
     return 0
 
 if __name__ == "__main__":
