@@ -36,13 +36,6 @@ from ansible.module_utils.morpheus import (
 
 class LookupModule(LookupBase):
 
-    def _get_environment(self, environments, name, default_value=None):
-        for env in environments:
-            if name in env:
-                return env.get(name)
-        return os.getenv(name, default_value)
-
-
     def _get_params(self, params):
         authtype = params['authtype']
         if authtype == 'userpass':
