@@ -39,7 +39,7 @@ def morphtoken():
     return ''
 
 
-def morph_get_client(params, endpoint):
+def morph_get_client(params, endpoint, query):
     verify = params.get('ssl_verify')
     authtype = params.get('authtype')
     baseurl = params.get('baseurl')
@@ -49,7 +49,7 @@ def morph_get_client(params, endpoint):
         token = params.get('api_token')
     url = urljoin(baseurl, endpoint)
     headers = {"Authorization": "BEARER " + token}
-    json_data = requests.get(url, headers=headers, params=params['params'], verify=verify).json()
+    json_data = requests.get(url, headers=headers, params=query, verify=verify).json()
     return json_data
     
 
