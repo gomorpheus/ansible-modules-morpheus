@@ -108,6 +108,8 @@ class LookupModule(LookupBase):
             except ValueError:
                 raise AnsibleError("morph_cypher lookup plugin needs key=value pairs, but received %s" %terms)
             params[key] = value
+        
+        params['params'] = params.pop('secret_key')
 
         cypher = posixpath.join('api', 'cypher')
         client = morph_get_client(self._get_params(params), cypher)
