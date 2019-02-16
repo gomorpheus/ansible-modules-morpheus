@@ -13,7 +13,7 @@ long_description=open('README.md', 'r').read()
 
 setup(
     name='ansible-modules-morpheus',
-    version='0.1.1',
+    version='0.1.2',
     description='Ansible Modules for Morpheus Data',
     long_description=long_description,
     long_description_content_type='text/markdown',
