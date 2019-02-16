@@ -39,7 +39,7 @@ def morphtoken():
     return ''
 
 
-def morph_get_client(params, endpoint, query):
+def morph_get_client(params, endpoint, query=None):
     verify = params.get('ssl_verify')
     authtype = params.get('authtype')
     baseurl = params.get('baseurl')

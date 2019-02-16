@@ -74,7 +74,8 @@ def morph_secret(params):
 
     result = { "changed": False, "rc": 0}
     cypher = posixpath.join('api', 'cypher')
-    client = morph_get_client(params, cypher)
+    query = {'itemKey': params['secret_key']}
+    client = morph_get_client(params, cypher, query)
     url = urljoin(params["baseurl"], cypher)
     headers = {"Authorization": "BEARER " + params["api_token"]}
     #json_data = requests.get(url, headers=headers).json()
