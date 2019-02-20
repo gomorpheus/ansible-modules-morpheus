@@ -69,6 +69,7 @@ from ansible.plugins.lookup import LookupBase
 from ansible.module_utils.morpheus import (
     morph_auth,
     morph_get_client,
+    morph_post_client,
     morphtoken
 )
 from ansible.utils.display import Display
@@ -115,7 +116,11 @@ class LookupModule(LookupBase):
         client = morph_get_client(self._get_params(params), cypher, query)
         url = urljoin(params['baseurl'], cypher)
         headers = {'Authorization': 'BEARER ' + params['api_token']}
-        match = [d['id'] for d in client['cyphers']][0]
+        try:
+            match = [d['id'] for d in client['cyphers']][0]
+        except:
+            new_client = morph_post_client(self._get_params(params), cypher, query)
+            match = [d['id'] for d in new_client['cyphers']][0]
         new_cypher = posixpath.join('cypher', str(match), 'decrypt')
         secret_url = urljoin(url, new_cypher)
         new_resp = requests.get(secret_url, headers=headers, verify=params['ssl_verify'])
