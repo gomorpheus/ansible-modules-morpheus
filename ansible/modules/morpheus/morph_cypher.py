@@ -5,6 +5,7 @@ import os
 import posixpath
 from ansible.module_utils.morpheus import (
     morph_get_client,
+    morph_post_client,
     morph_argspec,
     morph_init, 
     morphwrapper
@@ -80,7 +81,7 @@ def morph_secret(params):
     
     if len(client['cyphers']) == 0:
         new_query = {'cypher': query}
-        new_client = morph_post_client(self._get_params(params), cypher, new_query)
+        new_client = morph_post_client(params, cypher, new_query)
         match = new_client['cypher']['id']
     else:
         match = [d['id'] for d in client['cyphers']][0]
