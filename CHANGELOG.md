@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.0 (02-19-2019)
+* Added create-if-not-exists for passwords [Adam Hicks]
+
 ## 0.1.2 (02-16-2019)
 * Significant bug fix to allow module to use new client [Adam Hicks]
 
