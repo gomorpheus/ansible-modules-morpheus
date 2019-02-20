@@ -120,7 +120,7 @@ class LookupModule(LookupBase):
         except:
             new_query = {'cypher': query}
             new_client = morph_post_client(self._get_params(params), cypher, new_query)
-            match = [d['id'] for d in new_client['cyphers']][0]
+            match = new_client['cypher']['id']
 
         url = urljoin(params['baseurl'], cypher)
         headers = {'Authorization': 'BEARER ' + params['api_token']}
