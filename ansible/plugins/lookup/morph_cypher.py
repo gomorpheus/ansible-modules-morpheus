@@ -115,12 +115,12 @@ class LookupModule(LookupBase):
         cypher = posixpath.join('api', 'cypher')
         client = morph_get_client(self._get_params(params), cypher, query)
 
-        try:
-            match = [d['id'] for d in client['cyphers']][0]
-        except:
+        if len(client['cyphers']) == 0:
             new_query = {'cypher': query}
             new_client = morph_post_client(self._get_params(params), cypher, new_query)
             match = new_client['cypher']['id']
+        else:
+            match = [d['id'] for d in client['cyphers']][0]
 
         url = urljoin(params['baseurl'], cypher)
         headers = {'Authorization': 'BEARER ' + params['api_token']}
