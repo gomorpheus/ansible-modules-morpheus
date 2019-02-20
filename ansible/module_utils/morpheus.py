@@ -51,6 +51,21 @@ def morph_get_client(params, endpoint, query=None):
     headers = {"Authorization": "BEARER " + token}
     json_data = requests.get(url, headers=headers, params=query, verify=verify).json()
     return json_data
+
+def morph_post_client(params, endpoint, query=None):
+    verify = params.get('ssl_verify')
+    authtype = params.get('authtype')
+    baseurl = params.get('baseurl')
+    if authtype == 'userpass':
+        token = morph_auth(params)
+    else:
+        token = params.get('api_token')
+    url = urljoin(baseurl, endpoint)
+    headers = {"Authorization": "BEARER " + token}
+    headers["Content-Type"] = "application/json"
+    json_data = requests.post(url, headers=headers, params=query, verify=verify).json()
+    return json_data
+
     
 
 def morph_auth(params):
