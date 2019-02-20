@@ -63,7 +63,7 @@ def morph_post_client(params, endpoint, query=None):
     url = urljoin(baseurl, endpoint)
     headers = {"Authorization": "BEARER " + token}
     headers["Content-Type"] = "application/json"
-    json_data = requests.post(url, headers=headers, params=query, verify=verify).json()
+    json_data = requests.post(url, headers=headers, data=query, verify=verify).json()
     return json_data
 
     
